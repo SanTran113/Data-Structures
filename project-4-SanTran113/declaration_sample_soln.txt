@@ -1,0 +1,28 @@
+abolishing: 1 7
+absolute: 5
+arbitrary: 2
+away: 7
+boundaries: 3
+charters: 7
+colonies: 5
+english: 1
+enlarging: 3
+establishing: 2
+example: 4
+fit: 4
+for: 1 7
+free: 1
+government: 2
+instrument: 4
+introducing: 4
+laws: 1 7
+neighbouring: 1
+once: 3
+province: 2
+render: 3
+rule: 5
+same: 4
+system: 1
+taking: 7
+therein: 2
+valuable: 7

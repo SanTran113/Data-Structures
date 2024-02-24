@@ -1,0 +1,5 @@
+bear: 1
+fuzzy: 1 2
+hair: 1
+wasnt: 2
+wuzzy: 1
