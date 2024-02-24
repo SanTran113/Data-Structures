@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>binary_search_tree_tests.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+binary_search_tree_tests.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">unittest</span>
+<span class="s0">from </span><span class="s1">binary_search_tree </span><span class="s0">import </span><span class="s1">*</span>
+<span class="s0">import </span><span class="s1">random</span>
+
+<span class="s0">class </span><span class="s1">TestLab4(unittest.TestCase):</span>
+
+    <span class="s0">def </span><span class="s1">test_00(self) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s1">tn1 = TreeNode(</span><span class="s2">1</span><span class="s0">, None</span><span class="s1">)</span>
+        <span class="s1">tn2 = TreeNode(</span><span class="s2">1</span><span class="s0">, None</span><span class="s1">)</span>
+        <span class="s1">self.assertFalse(tn1.__eq__(</span><span class="s0">None</span><span class="s1">))</span>
+        <span class="s1">self.assertEqual(tn1</span><span class="s0">, </span><span class="s1">tn2)</span>
+        <span class="s1">self.assertEqual(tn1.__repr__()</span><span class="s0">,</span><span class="s3">&quot;TreeNode(1, None, None, None)&quot;</span><span class="s1">)</span>
+
+    <span class="s0">def </span><span class="s1">test_01_simple(self) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s1">bst = BinarySearchTree()</span>
+        <span class="s1">self.assertEqual(bst.tree_height()</span><span class="s0">, None</span><span class="s1">)</span>
+        <span class="s1">self.assertTrue(bst.is_empty())</span>
+
+    <span class="s0">def </span><span class="s1">test_02_insert_search(self) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s1">bst = BinarySearchTree()</span>
+        <span class="s1">values = [</span><span class="s2">99</span><span class="s0">, </span><span class="s1">-</span><span class="s2">4</span><span class="s0">, </span><span class="s2">167</span><span class="s0">, </span><span class="s2">139</span><span class="s0">, </span><span class="s2">55</span><span class="s0">, </span><span class="s1">-</span><span class="s2">89</span><span class="s0">, </span><span class="s2">13</span><span class="s0">, </span><span class="s2">78</span><span class="s0">, </span><span class="s2">128</span><span class="s0">, </span><span class="s2">119</span><span class="s1">]</span>
+
+        <span class="s0">for </span><span class="s1">val </span><span class="s0">in </span><span class="s1">values:</span>
+            <span class="s1">bst.insert(val)</span>
+
+        <span class="s0">for </span><span class="s1">val </span><span class="s0">in </span><span class="s1">values:</span>
+            <span class="s1">self.assertTrue(bst.search(val))</span>
+            <span class="s1">self.assertFalse(bst.search(val - </span><span class="s2">1</span><span class="s1">))</span>
+            <span class="s1">self.assertFalse(bst.search(val + </span><span class="s2">1</span><span class="s1">))</span>
+            
+    <span class="s0">def </span><span class="s1">test_03_search_empty_list(self) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s1">bst = BinarySearchTree()</span>
+        <span class="s1">self.assertFalse(bst.search(</span><span class="s2">999</span><span class="s1">))</span>
+
+    <span class="s0">def </span><span class="s1">test_04_pre_in_level_order_empty_list(self) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s1">bst = BinarySearchTree()</span>
+        <span class="s1">self.assertEqual(bst.preorder_list()</span><span class="s0">, </span><span class="s1">[])</span>
+        <span class="s1">self.assertEqual(bst.inorder_list()</span><span class="s0">, </span><span class="s1">[])</span>
+        <span class="s1">self.assertEqual(bst.level_order_list()</span><span class="s0">, </span><span class="s1">[])</span>
+                
+    <span class="s0">def </span><span class="s1">test_07_test_min_max_empty(self) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s1">bst = BinarySearchTree()</span>
+        <span class="s1">self.assertEqual(</span><span class="s0">None, </span><span class="s1">bst.find_max())</span>
+        <span class="s1">self.assertEqual(</span><span class="s0">None, </span><span class="s1">bst.find_min())</span>
+
+    <span class="s0">def </span><span class="s1">test_08_test_inorder(self) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s1">bst = BinarySearchTree()</span>
+        <span class="s1">keys = [</span><span class="s2">99</span><span class="s0">, </span><span class="s1">-</span><span class="s2">4</span><span class="s0">, </span><span class="s2">167</span><span class="s0">, </span><span class="s2">139</span><span class="s0">, </span><span class="s2">55</span><span class="s0">, </span><span class="s1">-</span><span class="s2">89</span><span class="s0">, </span><span class="s2">13</span><span class="s0">, </span><span class="s2">78</span><span class="s0">, </span><span class="s2">178</span><span class="s0">, </span><span class="s2">174</span><span class="s1">]</span>
+      
+        <span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range(len(keys)):</span>
+            <span class="s1">bst.insert(keys[i])</span>
+      
+        <span class="s1">self.assertEqual(bst.inorder_list()</span><span class="s0">, </span><span class="s1">[-</span><span class="s2">89</span><span class="s0">, </span><span class="s1">-</span><span class="s2">4</span><span class="s0">, </span><span class="s2">13</span><span class="s0">, </span><span class="s2">55</span><span class="s0">, </span><span class="s2">78</span><span class="s0">, </span><span class="s2">99</span><span class="s0">, </span><span class="s2">139</span><span class="s0">, </span><span class="s2">167</span><span class="s0">, </span><span class="s2">174</span><span class="s0">, </span><span class="s2">178</span><span class="s1">])</span>
+
+    <span class="s0">def </span><span class="s1">test_09_test_preorder(self) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s1">bst = BinarySearchTree()</span>
+        <span class="s1">keys = [</span><span class="s2">99</span><span class="s0">, </span><span class="s1">-</span><span class="s2">4</span><span class="s0">, </span><span class="s2">167</span><span class="s0">, </span><span class="s2">139</span><span class="s0">, </span><span class="s2">55</span><span class="s0">, </span><span class="s1">-</span><span class="s2">89</span><span class="s0">, </span><span class="s2">13</span><span class="s0">, </span><span class="s2">78</span><span class="s0">, </span><span class="s2">178</span><span class="s0">, </span><span class="s2">174</span><span class="s1">]</span>
+      
+        <span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range(len(keys)):</span>
+            <span class="s1">bst.insert(keys[i])</span>
+      
+        <span class="s1">self.assertEqual(bst.preorder_list()</span><span class="s0">, </span><span class="s1">[</span><span class="s2">99</span><span class="s0">, </span><span class="s1">-</span><span class="s2">4</span><span class="s0">, </span><span class="s1">-</span><span class="s2">89</span><span class="s0">, </span><span class="s2">55</span><span class="s0">, </span><span class="s2">13</span><span class="s0">, </span><span class="s2">78</span><span class="s0">, </span><span class="s2">167</span><span class="s0">, </span><span class="s2">139</span><span class="s0">, </span><span class="s2">178</span><span class="s0">, </span><span class="s2">174</span><span class="s1">])</span>
+
+    <span class="s0">def </span><span class="s1">test_09_test_level_order(self) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s1">bst = BinarySearchTree()</span>
+        <span class="s1">keys = [</span><span class="s2">99</span><span class="s0">, </span><span class="s1">-</span><span class="s2">4</span><span class="s0">, </span><span class="s2">167</span><span class="s0">, </span><span class="s2">139</span><span class="s0">, </span><span class="s2">55</span><span class="s0">, </span><span class="s1">-</span><span class="s2">89</span><span class="s0">, </span><span class="s2">13</span><span class="s0">, </span><span class="s2">78</span><span class="s0">, </span><span class="s2">178</span><span class="s0">, </span><span class="s2">174</span><span class="s1">]</span>
+      
+        <span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range(len(keys)):</span>
+            <span class="s1">bst.insert(keys[i])</span>
+      
+        <span class="s1">self.assertEqual(bst.level_order_list()</span><span class="s0">, </span><span class="s1">[</span><span class="s2">99</span><span class="s0">, </span><span class="s1">-</span><span class="s2">4</span><span class="s0">, </span><span class="s2">167</span><span class="s0">, </span><span class="s1">-</span><span class="s2">89</span><span class="s0">, </span><span class="s2">55</span><span class="s0">, </span><span class="s2">139</span><span class="s0">, </span><span class="s2">178</span><span class="s0">, </span><span class="s2">13</span><span class="s0">, </span><span class="s2">78</span><span class="s0">, </span><span class="s2">174</span><span class="s1">])</span>
+        
+    <span class="s0">def </span><span class="s1">test_14_insert_replace(self) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s1">bst = BinarySearchTree()</span>
+        <span class="s1">bst.insert(</span><span class="s2">30</span><span class="s0">, </span><span class="s3">'aaa'</span><span class="s1">)</span>
+        <span class="s1">bst.insert(</span><span class="s2">40</span><span class="s0">, </span><span class="s3">'bbb'</span><span class="s1">)</span>
+        <span class="s1">bst.insert(</span><span class="s2">35</span><span class="s0">, </span><span class="s3">'ccc'</span><span class="s1">)</span>
+        <span class="s1">bst.insert(</span><span class="s2">50</span><span class="s0">, </span><span class="s3">'ddd'</span><span class="s1">)</span>
+        <span class="s1">bst.insert(</span><span class="s2">60</span><span class="s0">, </span><span class="s3">'eee'</span><span class="s1">)</span>
+        <span class="s1">bst.insert(</span><span class="s2">60</span><span class="s0">, </span><span class="s3">'zzz'</span><span class="s1">)</span>
+        <span class="s1">self.assertEqual(bst.find_max()</span><span class="s0">, </span><span class="s1">(</span><span class="s2">60</span><span class="s0">, </span><span class="s3">'zzz'</span><span class="s1">))</span>
+        <span class="s1">self.assertEqual(bst.tree_height()</span><span class="s0">, </span><span class="s2">3</span><span class="s1">)</span>
+
+    <span class="s0">def </span><span class="s1">test_16_test_tree_height(self) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s1">bst = BinarySearchTree()</span>
+        <span class="s1">keys = [</span><span class="s2">99</span><span class="s0">, </span><span class="s1">-</span><span class="s2">4</span><span class="s0">, </span><span class="s2">167</span><span class="s0">, </span><span class="s2">139</span><span class="s0">, </span><span class="s2">55</span><span class="s0">, </span><span class="s1">-</span><span class="s2">89</span><span class="s0">, </span><span class="s2">13</span><span class="s0">, </span><span class="s2">78</span><span class="s0">, </span><span class="s2">178</span><span class="s0">, </span><span class="s2">174</span><span class="s1">]</span>
+        <span class="s4"># print(bst.root.key)</span>
+        <span class="s0">for </span><span class="s1">i </span><span class="s0">in </span><span class="s1">range(len(keys)):</span>
+            <span class="s1">bst.insert(keys[i])            </span>
+        <span class="s1">self.assertEqual(bst.tree_height()</span><span class="s0">, </span><span class="s2">3</span><span class="s1">)</span>
+
+    <span class="s0">def </span><span class="s1">test_07_test_min_max(self) -&gt; </span><span class="s0">None</span><span class="s1">:</span>
+        <span class="s1">bst = BinarySearchTree()</span>
+        <span class="s1">values = [</span><span class="s2">99</span><span class="s0">, </span><span class="s1">-</span><span class="s2">4</span><span class="s0">, </span><span class="s2">167</span><span class="s0">, </span><span class="s2">139</span><span class="s0">, </span><span class="s2">55</span><span class="s0">, </span><span class="s1">-</span><span class="s2">89</span><span class="s0">, </span><span class="s2">13</span><span class="s0">, </span><span class="s2">78</span><span class="s0">, </span><span class="s2">178</span><span class="s0">, </span><span class="s2">174</span><span class="s1">]</span>
+        <span class="s0">for </span><span class="s1">val </span><span class="s0">in </span><span class="s1">values:</span>
+            <span class="s1">bst.insert(val)</span>
+            <span class="s1">x = bst.insert(val)</span>
+            <span class="s1">print(</span><span class="s3">f&quot;bst Val: </span><span class="s0">{</span><span class="s1">x</span><span class="s0">}</span><span class="s3">&quot;</span><span class="s1">)</span>
+            <span class="s4"># self.assertEqual(None, bst.find_max())</span>
+        <span class="s1">self.assertEqual(-</span><span class="s2">89</span><span class="s0">, </span><span class="s1">bst.find_min())</span>
+
+<span class="s0">if </span><span class="s1">__name__ == </span><span class="s3">'__main__'</span><span class="s1">: </span>
+    <span class="s1">unittest.main()</span>
+</pre>
+</body>
+</html>
